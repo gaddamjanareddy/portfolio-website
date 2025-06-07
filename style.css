@@ -1,0 +1,176 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+
+body{
+    font-family: "Bai Jamjuree", serif;
+    background-color:rgba(193, 211, 245, 0.92) ;
+    color: black;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* navbar */
+.navbar{
+    background-color: white;
+}
+
+.navbar-nav .nav-link{
+    color: black;
+    font-size: 1.1rem;  
+}
+.navbar-nav .nav-link:hover{
+    background-color: black;
+    color: orange;
+    border-radius: 10px;
+}
+
+#j-image{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+
+
+
+@media screen and (min-width:990px) {
+    .navbar-nav .nav-item{
+        padding: 0 2rem;
+    }
+    
+}
+
+
+/* hero section */
+
+section.hero{
+    height: 100vh;
+    padding-top: 225px;
+    color: white;
+    
+}
+
+
+#resume-btn{
+    margin-top: 20px;
+}
+.phn{
+    color: white;
+}
+
+/* skills section */
+
+.skills-container{
+    height: 100vh;
+    padding-top: 40px;  
+}
+.skills-div{
+    padding: 0px 65px;
+}
+
+.heading{
+margin-top: 100px;
+margin-left: 100px;
+
+}
+
+.cards{
+    margin:0px 10px 0px 80px;
+    
+}
+
+.card{
+    border: 1px solid transparent;
+    /* background-color:rgb(189, 249, 100); */
+}
+.card:hover{
+    box-shadow: -10px 10px 10px  rgba(116, 118, 121, 0.976);
+    transform: translateY(-5px);
+    
+
+}
+
+
+
+/* work-container goes here */
+
+.work-container{
+    height: 100vh;
+    padding-top: 40px;
+    
+}
+.btns-container{
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+
+}
+.live-btn{
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 3px 5px;
+}
+.live-btn:hover{
+    background-color: black;
+    color: orange;
+}
+
+
+
+
+
+/* services goes here */
+
+.services-container{
+    height: 100vh;
+    padding-top: 40px;
+    
+}
+
+
+
+/* contact */
+
+.contact{
+    height: 100vh;
+    padding-top: 100px;
+}
+
+/* footer */
+.contact-icons{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+
+/* mobile screens */
+
+@media screen and (max-width:1000px){
+    .heading{
+        margin: 0px 10px;
+        
+    }
+    .skills-div{
+    padding: 0px 0px;
+    margin: 0px 20px 0px -10px;
+    }
+    .cards{
+        margin:0px;
+    }
+    
+}
+
+
+
+  
+
+   
+    
+
+
