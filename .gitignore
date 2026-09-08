@@ -1,0 +1,7 @@
+# Local Claude Code settings (personal tool permissions, not shared config)
+.claude/settings.local.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
