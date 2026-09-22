@@ -7,35 +7,33 @@
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
 
   /* --------------------------------------------------------
-     Theme toggle (persisted)
+     Theme
      -------------------------------------------------------- */
-  var root = document.documentElement;
-  var themeToggle = document.getElementById("themeToggle");
-
   var stored = null;
   try {
     stored = localStorage.getItem("theme");
   } catch (e) {
-    /* storage blocked - fall back to the default theme */
+    /* storage blocked - fall back to the default */
   }
 
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "light" ? "#f7f8fb" : "#080b12");
+    if (meta) meta.setAttribute("content", theme === "light" ? "#fbfbfd" : "#060608");
   }
 
   if (stored === "light" || stored === "dark") {
     applyTheme(stored);
   } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-    // no choice saved yet - follow the visitor's system preference
     applyTheme("light");
   }
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", function () {
+  var themebtn = document.getElementById("themebtn");
+  if (themebtn) {
+    themebtn.addEventListener("click", function () {
       var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
       applyTheme(next);
       try {
@@ -49,28 +47,28 @@
   /* --------------------------------------------------------
      Mobile navigation
      -------------------------------------------------------- */
-  var navToggle = document.getElementById("navToggle");
-  var navLinks = document.getElementById("navLinks");
+  var navtoggle = document.getElementById("navtoggle");
+  var navlinks = document.getElementById("navlinks");
 
   function closeNav() {
-    if (!navLinks) return;
-    navLinks.classList.remove("is-open");
-    if (navToggle) {
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+    if (!navlinks) return;
+    navlinks.classList.remove("open");
+    if (navtoggle) {
+      navtoggle.setAttribute("aria-expanded", "false");
+      navtoggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
     }
   }
 
-  if (navToggle && navLinks) {
-    navToggle.addEventListener("click", function () {
-      var open = navLinks.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      navToggle.innerHTML = open
+  if (navtoggle && navlinks) {
+    navtoggle.addEventListener("click", function () {
+      var open = navlinks.classList.toggle("open");
+      navtoggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navtoggle.innerHTML = open
         ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
         : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
     });
 
-    navLinks.addEventListener("click", function (e) {
+    navlinks.addEventListener("click", function (e) {
       if (e.target.closest("a")) closeNav();
     });
 
@@ -80,23 +78,26 @@
   }
 
   /* --------------------------------------------------------
-     Sticky nav state + scroll progress + back to top
+     Sticky nav, progress bar, back to top
      -------------------------------------------------------- */
   var nav = document.getElementById("nav");
-  var progress = document.getElementById("progress");
-  var toTop = document.getElementById("toTop");
+  var bar = document.getElementById("bar");
+  var totop = document.getElementById("totop");
   var ticking = false;
 
   function onScroll() {
     var y = window.scrollY || window.pageYOffset;
 
-    if (nav) nav.classList.toggle("is-stuck", y > 12);
-    if (toTop) toTop.classList.toggle("is-visible", y > 600);
+    if (nav) nav.classList.toggle("stuck", y > 12);
+    if (totop) totop.classList.toggle("show", y > 700);
 
-    if (progress) {
+    if (bar) {
       var max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+      bar.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
     }
+
+    sweepReveals();
+    spy();
 
     ticking = false;
   }
@@ -104,6 +105,13 @@
   window.addEventListener(
     "scroll",
     function () {
+      // Reveals run outside the rAF gate on purpose. requestAnimationFrame is
+      // throttled whenever the page is not painting (background tab, reduced
+      // rendering), and content stuck at opacity 0 is a correctness bug, not a
+      // dropped animation frame. The sweep list empties as it goes, so this
+      // costs nothing once everything is visible.
+      sweepReveals();
+
       if (!ticking) {
         window.requestAnimationFrame(onScroll);
         ticking = true;
@@ -114,121 +122,92 @@
 
   onScroll();
 
-  if (toTop) {
-    toTop.addEventListener("click", function () {
+  if (totop) {
+    totop.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
   }
 
   /* --------------------------------------------------------
-     Scroll-spy: highlight the section in view
+     Scroll-spy
+
+     Sweep, not an observer: the marker tiles are short, so a
+     percentage-band IntersectionObserver skips straight past them.
      -------------------------------------------------------- */
-  var links = Array.prototype.slice.call(document.querySelectorAll(".nav__link"));
-  var sections = links
+  var links = Array.prototype.slice.call(document.querySelectorAll(".navlink"));
+  var targets = links
     .map(function (link) {
       var id = link.getAttribute("href");
-      return id && id.charAt(0) === "#" ? document.querySelector(id) : null;
+      var el = id && id.charAt(0) === "#" ? document.querySelector(id) : null;
+      return el ? { link: link, el: el } : null;
     })
     .filter(Boolean);
 
-  if ("IntersectionObserver" in window && sections.length) {
-    var spy = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          links.forEach(function (link) {
-            link.classList.toggle(
-              "is-active",
-              link.getAttribute("href") === "#" + entry.target.id
-            );
-          });
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
-
-    sections.forEach(function (section) {
-      spy.observe(section);
+  function spy() {
+    // onScroll runs once before this block is evaluated, so guard the var
+    if (!targets || !targets.length) return;
+    var line = 140;
+    var active = null;
+    targets.forEach(function (t) {
+      if (t.el.getBoundingClientRect().top <= line) active = t.link;
+    });
+    links.forEach(function (link) {
+      link.classList.toggle("on", link === active);
     });
   }
 
   /* --------------------------------------------------------
      Reveal on scroll
-     -------------------------------------------------------- */
-  var revealables = document.querySelectorAll(".reveal");
 
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    Array.prototype.forEach.call(revealables, function (el) {
-      el.classList.add("is-in");
+     Deliberately a scroll sweep rather than an IntersectionObserver.
+     An observer never fires when an element goes from below the
+     viewport to above it without a rendered frame in between - an
+     anchor jump or a flick scroll does exactly that - which leaves
+     content stuck at opacity 0. A sweep cannot miss: anything at or
+     above the fold that has not been revealed yet gets revealed.
+     -------------------------------------------------------- */
+  var revealables = Array.prototype.slice.call(document.querySelectorAll(".rv"));
+
+  function revealAll() {
+    revealables.forEach(function (el) {
+      el.classList.add("in");
     });
+    revealables = [];
+  }
+
+  function sweepReveals() {
+    // onScroll runs once before this block is evaluated, so guard the var
+    if (!revealables || !revealables.length) return;
+
+    var limit = window.innerHeight * 0.92;
+    var shown = 0;
+    var remaining = [];
+
+    revealables.forEach(function (el) {
+      if (el.getBoundingClientRect().top >= limit) {
+        remaining.push(el);
+        return;
+      }
+      // stagger whatever comes into view together
+      el.style.transitionDelay = Math.min(shown, 5) * 80 + "ms";
+      el.classList.add("in");
+      shown++;
+    });
+
+    revealables = remaining;
+  }
+
+  if (reduceMotion) {
+    revealAll();
   } else {
-    var revealer = new IntersectionObserver(
-      function (entries, observer) {
-        entries.forEach(function (entry, i) {
-          // reveal on entry, and also for anything a fast scroll or an anchor
-          // jump already carried above the viewport
-          var passed = entry.boundingClientRect.bottom < 0;
-          if (!entry.isIntersecting && !passed) return;
-          var el = entry.target;
-          // stagger siblings slightly so grids cascade in
-          var delay = Math.min(i, 5) * 70;
-          setTimeout(function () {
-            el.classList.add("is-in");
-          }, delay);
-          observer.unobserve(el);
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.1 }
-    );
-
-    Array.prototype.forEach.call(revealables, function (el) {
-      revealer.observe(el);
-    });
+    sweepReveals();
+    window.addEventListener("resize", sweepReveals, { passive: true });
+    // fonts and images settle after load and can shift things upward
+    window.addEventListener("load", sweepReveals);
   }
 
   /* --------------------------------------------------------
-     Hero role typewriter
-     -------------------------------------------------------- */
-  var typed = document.getElementById("typed");
-  var phrases = [
-    "Software Developer - React.js / Node.js",
-    "Real-time dashboards with WebSockets",
-    "Interactive map interfaces",
-    "Building full-stack depth in Node.js",
-  ];
-
-  if (typed) {
-    if (reduceMotion) {
-      typed.textContent = phrases[0];
-    } else {
-      var pi = 0;
-      var ci = 0;
-      var deleting = false;
-
-      (function type() {
-        var phrase = phrases[pi];
-        typed.textContent = phrase.slice(0, ci);
-
-        var wait = deleting ? 34 : 62;
-
-        if (!deleting && ci === phrase.length) {
-          deleting = true;
-          wait = 1900;
-        } else if (deleting && ci === 0) {
-          deleting = false;
-          pi = (pi + 1) % phrases.length;
-          wait = 320;
-        } else {
-          ci += deleting ? -1 : 1;
-        }
-
-        setTimeout(type, wait);
-      })();
-    }
-  }
-
-  /* --------------------------------------------------------
-     Count-up stats
+     Count-up numbers
      -------------------------------------------------------- */
   var counters = document.querySelectorAll("[data-count]");
 
@@ -242,7 +221,7 @@
     }
 
     var start = performance.now();
-    var duration = 1200;
+    var duration = 1400;
 
     (function step(now) {
       var t = Math.min((now - start) / duration, 1);
@@ -272,33 +251,83 @@
   }
 
   /* --------------------------------------------------------
-     Marquee: duplicate the track so the loop is seamless
+     Hero: split the headline into words so each one rises in
      -------------------------------------------------------- */
-  var track = document.getElementById("marqueeTrack");
-  if (track) {
-    track.innerHTML += track.innerHTML;
-  }
-
-  /* --------------------------------------------------------
-     GitHub section
-
-     Everything here comes from GitHub's own public API, so there is
-     no third-party service to go down. Any panel whose request fails
-     hides itself rather than showing an empty box.
-     -------------------------------------------------------- */
-  var GH_USER = "gaddamjanareddy";
-  var ghFallback = document.getElementById("ghFallback");
-
-  function ghHide(panel) {
-    if (panel) panel.hidden = true;
-    if (!document.querySelectorAll(".gh__panel:not([hidden])").length && ghFallback) {
-      ghFallback.hidden = false;
+  var headline = document.querySelector("[data-split]");
+  if (headline) {
+    if (reduceMotion) {
+      root.classList.add("ready");
+    } else {
+      var words = headline.textContent.trim().split(/\s+/);
+      headline.textContent = "";
+      words.forEach(function (word, i) {
+        var outer = document.createElement("span");
+        outer.className = "w";
+        var inner = document.createElement("span");
+        inner.textContent = word;
+        inner.style.setProperty("--d", 60 + i * 55 + "ms");
+        outer.appendChild(inner);
+        headline.appendChild(outer);
+        if (i < words.length - 1) headline.appendChild(document.createTextNode(" "));
+      });
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          root.classList.add("ready");
+        });
+      });
     }
   }
 
-  var ghProfilePanel = document.getElementById("ghProfilePanel");
-  var ghLangPanel = document.getElementById("ghLangPanel");
-  var ghReposPanel = document.getElementById("ghReposPanel");
+  /* --------------------------------------------------------
+     Background orbs drift with the pointer
+     -------------------------------------------------------- */
+  var orbs = Array.prototype.slice.call(document.querySelectorAll("[data-orb]"));
+  if (orbs.length && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener(
+      "pointermove",
+      function (e) {
+        var dx = e.clientX / window.innerWidth - 0.5;
+        var dy = e.clientY / window.innerHeight - 0.5;
+        orbs.forEach(function (orb) {
+          var k = parseFloat(orb.getAttribute("data-orb")) || 1;
+          orb.style.transform = "translate3d(" + dx * 42 * k + "px," + dy * 42 * k + "px,0)";
+        });
+      },
+      { passive: true }
+    );
+  }
+
+  /* --------------------------------------------------------
+     Pointer spotlight on skill cards
+     -------------------------------------------------------- */
+  if (window.matchMedia("(pointer: fine)").matches) {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-spot]"), function (el) {
+      el.addEventListener(
+        "pointermove",
+        function (e) {
+          var r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+          el.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+        },
+        { passive: true }
+      );
+    });
+  }
+
+  /* --------------------------------------------------------
+     Marquee: duplicate the track so the loop is seamless
+     -------------------------------------------------------- */
+  var track = document.getElementById("marqueeTrack");
+  if (track) track.innerHTML += track.innerHTML;
+
+  /* --------------------------------------------------------
+     GitHub - all from GitHub's own public API, so there is no
+     third-party service to go down. Failures hide their panel.
+     -------------------------------------------------------- */
+  var GH_USER = "gaddamjanareddy";
+  var ghNums = document.getElementById("ghNums");
+  var ghLangs = document.getElementById("ghLangs");
+  var ghRepos = document.getElementById("ghRepos");
 
   function esc(str) {
     var d = document.createElement("div");
@@ -306,7 +335,7 @@
     return d.innerHTML;
   }
 
-  if (ghProfilePanel || ghLangPanel) {
+  if (ghNums || ghLangs) {
     var api = "https://api.github.com/users/" + GH_USER;
 
     fetch(api)
@@ -315,20 +344,16 @@
         return r.json();
       })
       .then(function (user) {
-        var body = document.getElementById("ghProfileBody");
-        if (!body) return;
-
+        if (!ghNums) return;
         var since = new Date(user.created_at).getFullYear();
-        body.innerHTML =
-          '<div class="gh__stats">' +
-          '<div class="gh__stat"><b>' + esc(user.public_repos) + "</b><span>Repositories</span></div>" +
-          '<div class="gh__stat"><b>' + esc(user.followers) + "</b><span>Followers</span></div>" +
-          '<div class="gh__stat"><b>' + esc(user.following) + "</b><span>Following</span></div>" +
-          '<div class="gh__stat"><b>' + esc(since) + "</b><span>On GitHub since</span></div>" +
-          "</div>";
+        ghNums.innerHTML =
+          '<div class="ghn"><b>' + esc(user.public_repos) + "</b><span>Repositories</span></div>" +
+          '<div class="ghn"><b>' + esc(user.followers) + "</b><span>Followers</span></div>" +
+          '<div class="ghn"><b>' + esc(user.following) + "</b><span>Following</span></div>" +
+          '<div class="ghn"><b>' + esc(since) + "</b><span>On GitHub since</span></div>";
       })
       .catch(function () {
-        ghHide(ghProfilePanel);
+        if (ghNums) ghNums.innerHTML = '<p class="msg">Unavailable right now.</p>';
       });
 
     fetch(api + "/repos?per_page=100&sort=updated")
@@ -340,10 +365,9 @@
         repos = repos.filter(function (repo) {
           return !repo.fork;
         });
-
         if (!repos.length) throw new Error("empty");
 
-        // top languages, by how many repos use each as their primary language
+        // primary language of each repo, as a share of the total
         var counts = {};
         var total = 0;
         repos.forEach(function (repo) {
@@ -352,51 +376,45 @@
           total++;
         });
 
-        var langBody = document.getElementById("ghLangBody");
-        var langs = Object.keys(counts).sort(function (a, b) {
+        var names = Object.keys(counts).sort(function (a, b) {
           return counts[b] - counts[a];
         });
 
-        if (langBody && total && langs.length) {
-          langBody.innerHTML = langs
-            .slice(0, 5)
-            .map(function (lang) {
-              var pct = Math.round((counts[lang] / total) * 100);
-              return (
-                '<div class="gh__lang">' +
-                '<div class="gh__lang-head"><span>' + esc(lang) + "</span><span>" + pct + "%</span></div>" +
-                '<div class="gh__bar"><i style="width:' + pct + '%"></i></div>' +
-                "</div>"
-              );
-            })
-            .join("");
-        } else {
-          ghHide(ghLangPanel);
+        if (ghLangs) {
+          if (total && names.length) {
+            ghLangs.innerHTML = names
+              .slice(0, 5)
+              .map(function (lang) {
+                var pct = Math.round((counts[lang] / total) * 100);
+                return (
+                  '<div class="lang">' +
+                  '<div class="lang__top"><span>' + esc(lang) + "</span><i>" + pct + "%</i></div>" +
+                  '<div class="lang__bar"><i style="width:' + pct + '%"></i></div>' +
+                  "</div>"
+                );
+              })
+              .join("");
+          } else {
+            ghLangs.innerHTML = '<p class="msg">No language data.</p>';
+          }
         }
 
-        // most recently updated repositories
-        var reposBody = document.getElementById("ghReposBody");
-        if (reposBody) {
-          reposBody.innerHTML = repos
+        if (ghRepos) {
+          ghRepos.innerHTML = repos
             .slice(0, 4)
             .map(function (repo) {
               return (
-                '<a class="gh__repo" href="' + esc(repo.html_url) + '" target="_blank" rel="noopener">' +
-                '<span class="gh__repo-name"><i class="fa-solid fa-book-bookmark"></i>' + esc(repo.name) + "</span>" +
-                '<span class="gh__repo-desc">' + esc(repo.description || "No description") + "</span>" +
-                '<span class="gh__repo-meta">' +
-                (repo.language ? "<span>" + esc(repo.language) + "</span>" : "") +
-                "<span><i class='fa-regular fa-star'></i>" + esc(repo.stargazers_count) + "</span>" +
-                "</span></a>"
+                '<a class="repo" href="' + esc(repo.html_url) + '" target="_blank" rel="noopener">' +
+                "<b>" + esc(repo.name) + "</b>" +
+                "<span>" + esc(repo.language || "Repository") + "</span></a>"
               );
             })
             .join("");
-          if (ghReposPanel) ghReposPanel.hidden = false;
+          ghRepos.hidden = false;
         }
       })
       .catch(function () {
-        ghHide(ghLangPanel);
-        ghHide(ghReposPanel);
+        if (ghLangs) ghLangs.innerHTML = '<p class="msg">Unavailable right now.</p>';
       });
   }
 
@@ -404,13 +422,13 @@
      Contact form
 
      Posts to Formspree. Create a free form at https://formspree.io,
-     then put your endpoint in FORMSPREE_ENDPOINT below and in the
-     form's action attribute in index.html.
+     put the endpoint in FORMSPREE_ENDPOINT below and in the form's
+     action attribute in index.html.
 
-     While the placeholder is still in place, the form falls back to
+     While the placeholder is in place, the form falls back to
      opening the visitor's mail app, so it is never broken.
      -------------------------------------------------------- */
-  var FORMSPREE_ENDPOINT = "https://formspree.io/f/xyeybjlb";
+  var FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
   var EMAIL = "janareddygaddam2008@gmail.com";
 
   var form = document.getElementById("contactForm");
@@ -420,19 +438,13 @@
   function say(text, tone) {
     if (!note) return;
     note.textContent = text;
-    note.style.color =
-      tone === "error" ? "#f87171" : tone === "ok" ? "#34d399" : "";
+    note.style.color = tone === "error" ? "#e0685a" : tone === "ok" ? "#57c98a" : "";
   }
 
   function mailtoFallback(name, email, subject, message) {
     var body = "Name: " + name + "\nEmail: " + email + "\n\n" + message + "\n";
     window.location.href =
-      "mailto:" +
-      EMAIL +
-      "?subject=" +
-      encodeURIComponent(subject) +
-      "&body=" +
-      encodeURIComponent(body);
+      "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     say("Opening your email app…");
   }
 
@@ -440,7 +452,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // form.elements, not form.name — HTMLFormElement.name is the form's own attribute
+      // form.elements, not form.name - HTMLFormElement.name is the form's own attribute
       var fields = form.elements;
       var name = fields.name.value.trim();
       var email = fields.email.value.trim();
@@ -471,9 +483,9 @@
         body: new FormData(form),
       })
         .then(function (res) {
-          if (!res.ok) throw new Error("Request failed");
+          if (!res.ok) throw new Error("failed");
           form.reset();
-          say("Thanks — your message is on its way. I will reply soon.", "ok");
+          say("Thanks — your message is on its way.", "ok");
         })
         .catch(function () {
           say("Something went wrong. Opening your email app instead…", "error");

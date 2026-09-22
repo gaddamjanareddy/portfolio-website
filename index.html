@@ -4,39 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Janareddy Gaddam — Software Developer | React.js &amp; Node.js</title>
+    <title>Janareddy Gaddam — Software Developer</title>
     <meta
       name="description"
-      content="Janareddy Gaddam is a software developer in Hyderabad building real-time web interfaces with React.js, WebSockets and REST APIs, and growing backend depth in Node.js."
+      content="Software developer in Hyderabad building real-time, map-based interfaces with React.js, WebSockets and REST APIs."
     />
     <meta name="author" content="Janareddy Gaddam" />
-    <meta name="theme-color" content="#080b12" />
+    <meta name="theme-color" content="#060608" />
 
-    <!-- Open Graph / social preview -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Janareddy Gaddam — Software Developer" />
     <meta
       property="og:description"
-      content="React.js / Node.js developer building real-time dashboards and live, API-driven interfaces."
+      content="React.js / Node.js developer building real-time dashboards and live, map-based interfaces."
     />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ffb020'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.35em' font-family='Verdana,sans-serif' font-size='28' font-weight='bold' fill='%230a0d14'%3EJG%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23060608'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.35em' font-family='Helvetica,Arial,sans-serif' font-size='27' font-weight='bold' fill='%239aa2ff'%3EJG%3C/text%3E%3C/svg%3E"
     />
 
-    <!-- Icons -->
     <script
       src="https://kit.fontawesome.com/0ead1d0746.js"
       crossorigin="anonymous"
     ></script>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;550;600&display=swap"
       rel="stylesheet"
     />
 
@@ -44,50 +41,41 @@
   </head>
 
   <body>
-    <div class="progress" id="progress"></div>
+    <div class="bar" id="bar"></div>
+    <div class="orb orb--1" data-orb="1.4" aria-hidden="true"></div>
+    <div class="orb orb--2" data-orb="-1.1" aria-hidden="true"></div>
+    <div class="orb orb--3" data-orb="0.8" aria-hidden="true"></div>
+
     <a href="#main" class="sr-only">Skip to content</a>
 
-    <!-- ==========================================================
-         Navbar
-         ========================================================== -->
     <header class="nav" id="nav">
-      <div class="nav__inner">
-        <a class="brand" href="#hero" aria-label="Janareddy Gaddam — home">
-          <span class="brand__mark">JG</span>
-          <span class="brand__text">Janareddy <span>Gaddam</span></span>
-        </a>
+      <div class="nav__in">
+        <a class="brand" href="#hero">Janareddy <span>Gaddam</span></a>
 
         <nav>
-          <ul class="nav__links" id="navLinks">
-            <li><a class="nav__link" href="#hero">Home</a></li>
-            <li><a class="nav__link" href="#about">About</a></li>
-            <li><a class="nav__link" href="#experience">Experience</a></li>
-            <li><a class="nav__link" href="#skills">Skills</a></li>
-            <li><a class="nav__link" href="#work">Work</a></li>
-            <li><a class="nav__link" href="#github">GitHub</a></li>
-            <li><a class="nav__link" href="#services">Services</a></li>
-            <li><a class="nav__link" href="#contact">Contact</a></li>
+          <ul class="navlinks" id="navlinks">
+            <li><a class="navlink" href="#about">About</a></li>
+            <li><a class="navlink" href="#work">Work</a></li>
+            <li><a class="navlink" href="#experience">Experience</a></li>
+            <li><a class="navlink" href="#skills">Skills</a></li>
+            <li><a class="navlink" href="#github">GitHub</a></li>
+            <li><a class="navlink" href="#contact">Contact</a></li>
           </ul>
         </nav>
 
-        <div class="nav__actions">
-          <button
-            class="icon-btn theme-toggle"
-            id="themeToggle"
-            type="button"
-            aria-label="Toggle colour theme"
-          >
+        <div class="navacts">
+          <button class="iconbtn themebtn" id="themebtn" type="button" aria-label="Toggle colour theme">
             <i class="fa-solid fa-moon moon" aria-hidden="true"></i>
             <i class="fa-solid fa-sun sun" aria-hidden="true"></i>
           </button>
-          <a class="btn btn--primary btn--sm" href="#contact">Let&rsquo;s talk</a>
+          <a class="btn btn--sm btn--fill" href="#contact">Let's talk</a>
           <button
-            class="icon-btn nav__toggle"
-            id="navToggle"
+            class="iconbtn navtoggle"
+            id="navtoggle"
             type="button"
             aria-label="Toggle navigation menu"
             aria-expanded="false"
-            aria-controls="navLinks"
+            aria-controls="navlinks"
           >
             <i class="fa-solid fa-bars" aria-hidden="true"></i>
           </button>
@@ -96,524 +84,219 @@
     </header>
 
     <main id="main">
-      <!-- ==========================================================
-           Hero
-           ========================================================== -->
+      <!-- ========================= hero ========================= -->
       <section class="hero" id="hero">
-        <div class="container">
-          <div class="hero__grid">
-            <div class="hero__intro">
-              <p class="status">
-                <span class="status__dot" aria-hidden="true"></span>
-                Open to new opportunities
-              </p>
+        <div class="wrap">
+          <p class="pill">
+            <span class="dot" aria-hidden="true"></span>
+            Open to opportunities · Hyderabad, India
+          </p>
 
-              <h1 class="hero__title">
-                <span class="line">Hi, I&rsquo;m Janareddy.</span>
-                <span class="line grad">I build real-time web interfaces.</span>
-              </h1>
+          <h1 data-split>I build real-time interfaces for the web.</h1>
 
-              <p class="hero__role">
-                <span id="typed"></span><span class="cursor" aria-hidden="true"></span>
-              </p>
+          <p class="hero__lead rv">
+            Software developer working in React.js on live, map-based screens —
+            with Node.js depth growing behind them.
+          </p>
 
-              <p class="hero__copy">
-                Software developer in Hyderabad. I work with React.js on live
-                dashboards and API-driven screens, and I&rsquo;m building my backend
-                depth in Node.js.
-              </p>
+          <div class="hero__cta rv">
+            <a class="btn btn--fill" href="#work">
+              View my work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a class="btn" href="./assets/Janareddy-Gaddam-Resume.pdf" download>
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Résumé
+            </a>
+          </div>
 
-              <div class="hero__actions">
-                <a class="btn btn--primary" href="#work">
-                  <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                  Explore my work
-                </a>
-                <a
-                  class="btn btn--ghost"
-                  href="./assets/Janareddy-Gaddam-Resume.pdf"
-                  download
-                >
-                  <i class="fa-solid fa-download" aria-hidden="true"></i>
-                  Download résumé
-                </a>
-              </div>
-            </div>
-
-            <!-- profile card -->
-            <aside class="profile">
-              <div class="profile__glow" aria-hidden="true"></div>
-
-              <div class="profile__avatar" aria-hidden="true">
-                <span>JG</span>
-              </div>
-
-              <h2 class="profile__name">Janareddy Gaddam</h2>
-              <p class="profile__role">Software Developer</p>
-
-              <ul class="profile__meta">
-                <li>
-                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                  Hyderabad, India
-                </li>
-                <li>
-                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                  <a href="mailto:janareddygaddam2008@gmail.com">janareddygaddam2008@gmail.com</a>
-                </li>
-                <li>
-                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                  <a href="tel:+919390871746">+91 93908 71746</a>
-                </li>
-              </ul>
-
-              <div class="profile__socials">
-                <a
-                  class="social"
-                  href="https://github.com/gaddamjanareddy"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="GitHub"
-                >
-                  <i class="fa-brands fa-github" aria-hidden="true"></i>
-                </a>
-                <a
-                  class="social"
-                  href="https://www.linkedin.com/in/gaddam-janareddy-400858228"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="LinkedIn"
-                >
-                  <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-                </a>
-                <a
-                  class="social"
-                  href="https://x.com/GaddamJanareddy"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="X"
-                >
-                  <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-                </a>
-                <a
-                  class="social"
-                  href="https://www.instagram.com/gaddam_janareddy"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Instagram"
-                >
-                  <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                </a>
-              </div>
-
-              <div class="stats">
-                <div class="stat">
-                  <div class="stat__num" data-count="3">0</div>
-                  <div class="stat__label">Live projects</div>
-                </div>
-                <div class="stat">
-                  <div class="stat__num" data-count="10" data-suffix="+">0</div>
-                  <div class="stat__label">Technologies</div>
-                </div>
-                <div class="stat">
-                  <div class="stat__num" data-count="2025">0</div>
-                  <div class="stat__label">B.Tech, graduated</div>
-                </div>
-              </div>
-            </aside>
+          <div class="hero__foot rv">
+            <div><b data-count="3">0</b><span>Live projects</span></div>
+            <div><b data-count="10" data-suffix="+">0</b><span>Technologies</span></div>
+            <div><b data-count="3">0</b><span>Live data streams</span></div>
+            <div><b data-count="2025">0</b><span>B.Tech, graduated</span></div>
           </div>
         </div>
-
-        <span class="scroll-hint">Scroll</span>
       </section>
 
-      <!-- ==========================================================
-           Tech marquee
-           ========================================================== -->
+      <!-- ========================= marquee ========================= -->
       <div class="marquee" aria-hidden="true">
-        <div class="marquee__track" id="marqueeTrack">
-          <span class="marquee__item"><i class="fa-brands fa-react"></i> React.js</span>
-          <span class="marquee__item"><i class="fa-brands fa-js"></i> JavaScript ES6+</span>
-          <span class="marquee__item"><i class="fa-brands fa-node-js"></i> Node.js</span>
-          <span class="marquee__item"><i class="fa-solid fa-server"></i> Express.js</span>
-          <span class="marquee__item"><i class="fa-solid fa-database"></i> MongoDB</span>
-          <span class="marquee__item"><i class="fa-solid fa-bolt"></i> WebSockets</span>
-          <span class="marquee__item"><i class="fa-solid fa-map-location-dot"></i> Interactive Maps</span>
-          <span class="marquee__item"><i class="fa-brands fa-html5"></i> HTML5</span>
-          <span class="marquee__item"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
-          <span class="marquee__item"><i class="fa-solid fa-wind"></i> Tailwind CSS</span>
-          <span class="marquee__item"><i class="fa-brands fa-git-alt"></i> Git &amp; GitHub</span>
-          <span class="marquee__item"><i class="fa-solid fa-code-branch"></i> REST APIs</span>
+        <div class="marquee__t" id="marqueeTrack">
+          <span class="marquee__i">React.js</span>
+          <span class="marquee__i">JavaScript</span>
+          <span class="marquee__i">Node.js</span>
+          <span class="marquee__i">Express.js</span>
+          <span class="marquee__i">MongoDB</span>
+          <span class="marquee__i">WebSockets</span>
+          <span class="marquee__i">REST APIs</span>
+          <span class="marquee__i">Interactive Maps</span>
+          <span class="marquee__i">Tailwind CSS</span>
+          <span class="marquee__i">Git</span>
         </div>
       </div>
 
-      <!-- ==========================================================
-           About
-           ========================================================== -->
+      <!-- ========================= about ========================= -->
       <section class="section" id="about">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">About</p>
-            <h2 class="section-title">
-              Interfaces that stay <span class="text-accent">correct</span> while
-              the data keeps moving.
-            </h2>
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">About</p>
+            <h2 class="stitle">Interfaces that stay <span class="grad">correct</span> while the data moves.</h2>
+            <p class="slead">Real-time UI and geospatial views, with backend depth growing behind them.</p>
           </div>
 
           <div class="about">
-            <div class="reveal">
+            <div class="rv">
               <p>
-                I build screens that load through an API and then
-                <strong>stay current on their own</strong> — through a live stream
-                rather than polling or a refresh button.
+                I build screens that load through an API and then stay current on
+                their own — through a <strong>live event stream</strong>, not polling
+                or a refresh button. When several people act on the same data at
+                once, that difference is the product.
               </p>
               <p>
-                Day to day that means <strong>React state, live events and REST
-                APIs</strong>, plus map views where position and coverage have to be
-                readable at a glance. I&rsquo;m now deepening the backend half with
-                <strong>Node.js, Express and MongoDB</strong>.
+                Day to day that means <strong>React state, WebSocket events and REST
+                APIs</strong>, plus map views where position has to read at a glance.
               </p>
             </div>
 
-            <div class="facts reveal">
-              <div class="fact">
-                <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-                <div>
-                  <div class="fact__label">Role</div>
-                  <div class="fact__value">Software Developer</div>
-                </div>
-              </div>
-              <div class="fact">
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                <div>
-                  <div class="fact__label">Based in</div>
-                  <div class="fact__value">Hyderabad, India</div>
-                </div>
-              </div>
-              <div class="fact">
-                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-                <div>
-                  <div class="fact__label">Education</div>
-                  <div class="fact__value">B.Tech — CSE (Data Science)</div>
-                </div>
-              </div>
-              <div class="fact">
-                <i class="fa-solid fa-compass-drafting" aria-hidden="true"></i>
-                <div>
-                  <div class="fact__label">Focus</div>
-                  <div class="fact__value">Real-time UI, maps, full-stack depth</div>
-                </div>
-              </div>
-            </div>
+            <dl class="facts rv">
+              <div class="fact"><dt>Role</dt><dd>Software Developer</dd></div>
+              <div class="fact"><dt>Company</dt><dd>Krishnas Digital Technologies</dd></div>
+              <div class="fact"><dt>Location</dt><dd>Hyderabad, India</dd></div>
+              <div class="fact"><dt>Education</dt><dd>B.Tech — CSE (Data Science)</dd></div>
+              <div class="fact"><dt>Focus</dt><dd>Real-time UI · Geospatial</dd></div>
+            </dl>
           </div>
         </div>
       </section>
 
-      <!-- ==========================================================
-           Experience
-           ========================================================== -->
-      <section class="section" id="experience">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">Experience</p>
-            <h2 class="section-title">Where I&rsquo;ve been shipping</h2>
-          </div>
-
-          <div class="timeline">
-            <article class="tl-item reveal">
-              <div class="tl-head">
-                <h3 class="tl-role">Software Developer</h3>
-                <span class="tl-company">Krishnas Digital Technologies &amp; Softlabs</span>
-                <span class="tl-period">Nov 2025 — Present · Hyderabad</span>
-              </div>
-
-              <ul class="tl-list">
-                <li>
-                  Build <strong>real-time web interfaces in React.js</strong> for a
-                  platform that runs live, every day.
-                </li>
-                <li>
-                  Implement <strong>live data flows over WebSockets</strong>, so
-                  screens update the moment something changes — no polling, no
-                  refresh.
-                </li>
-                <li>
-                  Create <strong>multi-panel dashboards</strong> that bring several
-                  live data streams together into one view.
-                </li>
-                <li>
-                  Integrate <strong>REST APIs</strong> for data fetch, sync and
-                  status updates between the UI and the backend.
-                </li>
-                <li>
-                  Work independently in a <strong>large existing codebase</strong>,
-                  shipping features and fixes across it.
-                </li>
-              </ul>
-
-              <div class="tl-tags">
-                <span class="tag">React.js</span>
-                <span class="tag">WebSockets</span>
-                <span class="tag">REST APIs</span>
-                <span class="tag">Live dashboards</span>
-                <span class="tag">Maps</span>
-              </div>
-            </article>
-
-            <article class="tl-item reveal">
-              <div class="tl-head">
-                <h3 class="tl-role">Full-Stack Development Programme</h3>
-                <span class="tl-company">Innomatics Research Labs</span>
-                <span class="tl-period">Certification</span>
-              </div>
-              <ul class="tl-list">
-                <li>
-                  Trained across the MERN stack — HTML, CSS, JavaScript, React.js,
-                  Node.js, Express and MongoDB — building the projects below.
-                </li>
-              </ul>
-              <div class="tl-tags">
-                <span class="tag">MERN</span>
-                <span class="tag">Responsive UI</span>
-                <span class="tag">Git</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================================
-           Skills
-           ========================================================== -->
-      <section class="section" id="skills">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">Skills</p>
-            <h2 class="section-title">The toolkit I work in</h2>
-          </div>
-
-          <div class="skill-grid">
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-display" aria-hidden="true"></i>
-              </div>
-              <h3>Frontend</h3>
-              <p>Components, state and responsive layout.</p>
-              <div class="skill-card__tags">
-                <span class="tag">JavaScript (ES6+)</span>
-                <span class="tag">React.js</span>
-                <span class="tag">HTML5</span>
-                <span class="tag">CSS3</span>
-                <span class="tag">Tailwind CSS</span>
-                <span class="tag">Bootstrap</span>
-              </div>
-            </article>
-
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-server" aria-hidden="true"></i>
-              </div>
-              <h3>Backend &amp; Data</h3>
-              <p>APIs, server logic and data modelling.</p>
-              <div class="skill-card__tags">
-                <span class="tag">Node.js</span>
-                <span class="tag">Express.js</span>
-                <span class="tag">MongoDB</span>
-                <span class="tag">REST APIs</span>
-              </div>
-            </article>
-
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
-              </div>
-              <h3>Real-Time</h3>
-              <p>Keeping every screen in sync, live.</p>
-              <div class="skill-card__tags">
-                <span class="tag">WebSockets</span>
-                <span class="tag">Live data sync</span>
-                <span class="tag">Event-driven UI</span>
-              </div>
-            </article>
-
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-              </div>
-              <h3>Maps &amp; Location</h3>
-              <p>Coordinates turned into something readable.</p>
-              <div class="skill-card__tags">
-                <span class="tag">Interactive maps</span>
-                <span class="tag">Live tracking</span>
-                <span class="tag">Markers</span>
-                <span class="tag">Radius views</span>
-              </div>
-            </article>
-
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
-              </div>
-              <h3>Tools</h3>
-              <p>Version control and daily workflow.</p>
-              <div class="skill-card__tags">
-                <span class="tag">Git</span>
-                <span class="tag">GitHub</span>
-                <span class="tag">VS Code</span>
-                <span class="tag">Postman</span>
-              </div>
-            </article>
-
-            <article class="skill-card reveal">
-              <div class="skill-card__icon">
-                <i class="fa-solid fa-users-gear" aria-hidden="true"></i>
-              </div>
-              <h3>Ways of Working</h3>
-              <p>How I move through unfamiliar code.</p>
-              <div class="skill-card__tags">
-                <span class="tag">Reading existing code</span>
-                <span class="tag">Debugging</span>
-                <span class="tag">Ownership</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================================
-           Work / Projects
-           ========================================================== -->
+      <!-- ========================= work ========================= -->
       <section class="section" id="work">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">Work</p>
-            <h2 class="section-title">Selected projects</h2>
-            <p class="section-sub">Each one live, each one with source you can read.</p>
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">Selected work</p>
+            <h2 class="stitle">Projects that are <span class="grad">live</span>.</h2>
+            <p class="slead">Every one deployed, with source you can read.</p>
           </div>
 
-          <div class="project-grid">
-            <article
-              class="project reveal"
-              style="--cover: linear-gradient(135deg, #0f2027, #203a43 55%, #2c5364)"
-            >
-              <div class="project__cover">
-                <span class="project__monogram">
-                  BO
-                  <small>Blue Origin</small>
-                </span>
-              </div>
-              <div class="project__body">
-                <h3 class="project__title">Blue Origin Website</h3>
-                <p class="project__desc">
-                  A homepage rebuild in React — reusable sections and a mobile-first
-                  grid.
-                </p>
-                <div class="project__tags">
-                  <span class="tag">React.js</span>
-                  <span class="tag">CSS3</span>
-                  <span class="tag">Responsive</span>
+          <div class="projects">
+            <article class="proj rv" style="--g: linear-gradient(150deg, #4c5bd4, #1e2470 55%, #0d1030)">
+              <div class="proj__cover">
+                <div class="mock" aria-hidden="true">
+                  <div class="mock__bar"><i></i><i></i><i></i></div>
+                  <div class="mock__body">
+                    <i class="sm"></i>
+                    <i class="lg"></i>
+                    <div class="mock__row"><i></i><i></i><i></i></div>
+                  </div>
                 </div>
-                <div class="project__links">
-                  <a
-                    class="btn btn--sm btn--ghost"
-                    href="https://github.com/gaddamjanareddy/Blue-Origin-Website"
-                    target="_blank"
-                    rel="noopener"
-                  >
+              </div>
+              <div class="proj__body">
+                <div class="proj__top">
+                  <h3 class="proj__title">Blue Origin</h3>
+                  <span class="proj__n">01</span>
+                </div>
+                <p class="proj__desc">
+                  A homepage rebuild in React — reusable sections composed onto a
+                  mobile-first grid.
+                </p>
+                <div class="proj__tags"><span>React.js</span><span>CSS3</span><span>Responsive</span></div>
+                <div class="proj__go">
+                  <a class="btn btn--sm" href="https://github.com/gaddamjanareddy/Blue-Origin-Website" target="_blank" rel="noopener">
                     <i class="fa-brands fa-github" aria-hidden="true"></i> Code
                   </a>
-                  <a
-                    class="btn btn--sm btn--primary"
-                    href="https://blueorigin-website.netlify.app/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-                    Live demo
+                  <a class="btn btn--sm btn--fill" href="https://blueorigin-website.netlify.app/" target="_blank" rel="noopener">
+                    Live demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
             </article>
 
-            <article
-              class="project reveal"
-              style="--cover: linear-gradient(135deg, #3f1d0b, #7a2f10 55%, #c2410c)"
-            >
-              <div class="project__cover">
-                <span class="project__monogram">
-                  MD
-                  <small>McDelivery</small>
-                </span>
-              </div>
-              <div class="project__body">
-                <h3 class="project__title">McDelivery Website</h3>
-                <p class="project__desc">
-                  A food-ordering site with a browsable menu, working cart state and
-                  a responsive storefront.
-                </p>
-                <div class="project__tags">
-                  <span class="tag">JavaScript</span>
-                  <span class="tag">Cart state</span>
-                  <span class="tag">Responsive</span>
+            <article class="proj rv" style="--g: linear-gradient(150deg, #f0803c, #b23a1a 55%, #3d1206)">
+              <div class="proj__cover">
+                <div class="mock" aria-hidden="true">
+                  <div class="mock__bar"><i></i><i></i><i></i></div>
+                  <div class="mock__body">
+                    <i class="sm"></i>
+                    <div class="mock__row"><i></i><i></i><i></i></div>
+                    <i class="lg"></i>
+                  </div>
                 </div>
-                <div class="project__links">
-                  <a
-                    class="btn btn--sm btn--ghost"
-                    href="https://github.com/gaddamjanareddy/MCdelivery-site"
-                    target="_blank"
-                    rel="noopener"
-                  >
+              </div>
+              <div class="proj__body">
+                <div class="proj__top">
+                  <h3 class="proj__title">McDelivery</h3>
+                  <span class="proj__n">02</span>
+                </div>
+                <p class="proj__desc">
+                  A food-ordering storefront with a browsable menu, working cart
+                  state and a responsive layout.
+                </p>
+                <div class="proj__tags"><span>JavaScript</span><span>Cart state</span><span>Responsive</span></div>
+                <div class="proj__go">
+                  <a class="btn btn--sm" href="https://github.com/gaddamjanareddy/MCdelivery-site" target="_blank" rel="noopener">
                     <i class="fa-brands fa-github" aria-hidden="true"></i> Code
                   </a>
-                  <a
-                    class="btn btn--sm btn--primary"
-                    href="https://mcdelivery-app.netlify.app/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-                    Live demo
+                  <a class="btn btn--sm btn--fill" href="https://mcdelivery-app.netlify.app/" target="_blank" rel="noopener">
+                    Live demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
             </article>
 
-            <article
-              class="project reveal"
-              style="--cover: linear-gradient(135deg, #2b1608, #4a2c14 55%, #8a5a2b)"
-            >
-              <div class="project__cover">
-                <span class="project__monogram">
-                  CH
-                  <small>Cafe House</small>
-                </span>
-              </div>
-              <div class="project__body">
-                <h3 class="project__title">Cafe House Website</h3>
-                <p class="project__desc">
-                  An elegant cafe site with a product showcase and smooth interactive
-                  touches.
-                </p>
-                <div class="project__tags">
-                  <span class="tag">HTML5</span>
-                  <span class="tag">CSS3</span>
-                  <span class="tag">UI motion</span>
+            <article class="proj rv" style="--g: linear-gradient(150deg, #c79a63, #7a4f28 55%, #2a1a0b)">
+              <div class="proj__cover">
+                <div class="mock" aria-hidden="true">
+                  <div class="mock__bar"><i></i><i></i><i></i></div>
+                  <div class="mock__body">
+                    <i class="lg"></i>
+                    <i class="sm"></i>
+                    <div class="mock__row"><i></i><i></i><i></i></div>
+                  </div>
                 </div>
-                <div class="project__links">
-                  <a
-                    class="btn btn--sm btn--ghost"
-                    href="https://github.com/gaddamjanareddy/Coffee-website"
-                    target="_blank"
-                    rel="noopener"
-                  >
+              </div>
+              <div class="proj__body">
+                <div class="proj__top">
+                  <h3 class="proj__title">Cafe House</h3>
+                  <span class="proj__n">03</span>
+                </div>
+                <p class="proj__desc">
+                  An elegant cafe site — product showcase, considered type and
+                  smooth interactive detail.
+                </p>
+                <div class="proj__tags"><span>HTML5</span><span>CSS3</span><span>UI motion</span></div>
+                <div class="proj__go">
+                  <a class="btn btn--sm" href="https://github.com/gaddamjanareddy/Coffee-website" target="_blank" rel="noopener">
                     <i class="fa-brands fa-github" aria-hidden="true"></i> Code
                   </a>
-                  <a
-                    class="btn btn--sm btn--primary"
-                    href="https://cafe-huse.netlify.app/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-                    Live demo
+                  <a class="btn btn--sm btn--fill" href="https://cafe-huse.netlify.app/" target="_blank" rel="noopener">
+                    Live demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="proj rv" style="--g: linear-gradient(150deg, #6f7cff, #8f5ce0 55%, #221a4a)">
+              <div class="proj__cover">
+                <div class="mock" aria-hidden="true">
+                  <div class="mock__bar"><i></i><i></i><i></i></div>
+                  <div class="mock__body">
+                    <i class="sm"></i>
+                    <i class="lg"></i>
+                    <div class="mock__row"><i></i><i></i><i></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="proj__body">
+                <div class="proj__top">
+                  <h3 class="proj__title">This portfolio</h3>
+                  <span class="proj__n">04</span>
+                </div>
+                <p class="proj__desc">
+                  Hand-written HTML, CSS and JavaScript. No framework, no build
+                  step, live GitHub data.
+                </p>
+                <div class="proj__tags"><span>Vanilla JS</span><span>CSS Grid</span><span>GitHub API</span></div>
+                <div class="proj__go">
+                  <a class="btn btn--sm" href="https://github.com/gaddamjanareddy/portfolio-website" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i> Code
                   </a>
                 </div>
               </div>
@@ -622,271 +305,232 @@
         </div>
       </section>
 
-      <!-- ==========================================================
-           GitHub activity
-           ========================================================== -->
+      <!-- ========================= experience ========================= -->
+      <section class="section" id="experience">
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">Experience</p>
+            <h2 class="stitle">Production work, shipped <span class="grad">live</span>.</h2>
+            <p class="slead">React, WebSockets and REST on a platform in daily use.</p>
+          </div>
+
+          <div class="tl">
+            <article class="tl__item rv">
+              <div class="tl__head">
+                <div>
+                  <h3 class="tl__role">Software Developer</h3>
+                  <p class="tl__org">Krishnas Digital Technologies &amp; Softlabs</p>
+                </div>
+                <span class="tl__when">Nov 2025 — Present</span>
+              </div>
+
+              <ul class="tl__list">
+                <li><b>Role-based real-time interfaces</b> in React.js, running live in production.</li>
+                <li><b>Record routing between user roles</b> over WebSockets (Pusher) — no manual handoff.</li>
+                <li><b>Multi-panel dashboard</b> consolidating three concurrent WebSocket streams into one view.</li>
+                <li><b>REST APIs</b> for approvals and status mutations, reconciled with the live stream.</li>
+                <li><b>Interactive maps</b> — live position markers and coverage-radius overlays.</li>
+                <li><b>Independent delivery</b> across a large existing codebase.</li>
+              </ul>
+
+              <div class="chips">
+                <span class="chip">React.js</span>
+                <span class="chip">WebSockets · Pusher</span>
+                <span class="chip">REST APIs</span>
+                <span class="chip">Interactive maps</span>
+                <span class="chip">Geolocation</span>
+              </div>
+            </article>
+
+            <article class="tl__item rv">
+              <div class="tl__head">
+                <div>
+                  <h3 class="tl__role">Full-Stack Development</h3>
+                  <p class="tl__org">Innomatics Research Labs</p>
+                </div>
+                <span class="tl__when">Certification</span>
+              </div>
+
+              <ul class="tl__list">
+                <li>Trained across the <b>MERN stack</b> — React.js, Node.js, Express and MongoDB.</li>
+              </ul>
+
+              <div class="chips">
+                <span class="chip">MERN</span>
+                <span class="chip">Responsive UI</span>
+                <span class="chip">Git</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= skills ========================= -->
+      <section class="section" id="skills">
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">Skills</p>
+            <h2 class="stitle">The toolkit I work in.</h2>
+            <p class="slead">Grouped by what each part actually does.</p>
+          </div>
+
+          <div class="skills">
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-solid fa-display" aria-hidden="true"></i></div>
+              <h3>Frontend</h3>
+              <p>Components, state, responsive layout.</p>
+              <div class="skill__tags">
+                <span>React.js</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>Tailwind</span>
+              </div>
+            </article>
+
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-solid fa-server" aria-hidden="true"></i></div>
+              <h3>Backend &amp; Data</h3>
+              <p>APIs, server logic, data modelling.</p>
+              <div class="skill__tags">
+                <span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>REST</span>
+              </div>
+            </article>
+
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+              <h3>Real-Time</h3>
+              <p>Many screens, one truth, no refresh.</p>
+              <div class="skill__tags">
+                <span>WebSockets</span><span>Pusher</span><span>Event-driven UI</span>
+              </div>
+            </article>
+
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></div>
+              <h3>Geospatial</h3>
+              <p>Coordinates made readable.</p>
+              <div class="skill__tags">
+                <span>Interactive maps</span><span>Live tracking</span><span>Radius overlays</span>
+              </div>
+            </article>
+
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-brands fa-git-alt" aria-hidden="true"></i></div>
+              <h3>Tooling</h3>
+              <p>Version control and daily practice.</p>
+              <div class="skill__tags">
+                <span>Git</span><span>GitHub</span><span>VS Code</span><span>Postman</span>
+              </div>
+            </article>
+
+            <article class="skill rv" data-spot>
+              <div class="skill__ico"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+              <h3>Background</h3>
+              <p>B.Tech CSE, then the MERN stack.</p>
+              <div class="skill__tags">
+                <span>CGPA 7.02</span><span>Innomatics</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= github ========================= -->
       <section class="section" id="github">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">GitHub</p>
-            <h2 class="section-title">Code, committed</h2>
-            <p class="section-sub">
-              Pulled live from my profile whenever this page loads.
-            </p>
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">GitHub</p>
+            <h2 class="stitle">Pulled <span class="grad">live</span> from my profile.</h2>
+            <p class="slead">Fetched from the GitHub API on every page load.</p>
           </div>
 
-          <div class="gh reveal">
-            <div class="gh__panel" id="ghProfilePanel">
-              <div class="gh__panel-head">
-                <i class="fa-solid fa-code" aria-hidden="true"></i>
-                <span>Profile</span>
-              </div>
-              <div id="ghProfileBody">
-                <p class="gh__loading">Loading…</p>
-              </div>
+          <div class="gh rv">
+            <div class="panel">
+              <p class="panel__t">Profile</p>
+              <div class="ghnums" id="ghNums"><p class="msg">Loading…</p></div>
             </div>
 
-            <div class="gh__panel" id="ghLangPanel">
-              <div class="gh__panel-head">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                <span>Most used languages</span>
-              </div>
-              <div id="ghLangBody">
-                <p class="gh__loading">Loading…</p>
-              </div>
-            </div>
-
-            <div class="gh__panel gh__panel--wide" id="ghReposPanel" hidden>
-              <div class="gh__panel-head">
-                <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-                <span>Recently updated</span>
-              </div>
-              <div class="gh__repos" id="ghReposBody"></div>
+            <div class="panel">
+              <p class="panel__t">Most used languages</p>
+              <div id="ghLangs"><p class="msg">Loading…</p></div>
             </div>
           </div>
 
-          <p class="gh__fallback" id="ghFallback" hidden>
-            Live GitHub data could not load right now — the profile link below
-            always works.
-          </p>
+          <div class="repos rv" id="ghRepos" hidden></div>
 
-          <div class="gh__cta reveal">
-            <a
-              class="btn btn--primary"
-              href="https://github.com/gaddamjanareddy"
-              target="_blank"
-              rel="noopener"
-            >
-              <i class="fa-brands fa-github" aria-hidden="true"></i>
-              View my GitHub profile
+          <div class="ghcta rv">
+            <a class="btn" href="https://github.com/gaddamjanareddy" target="_blank" rel="noopener">
+              <i class="fa-brands fa-github" aria-hidden="true"></i> View full profile
             </a>
           </div>
         </div>
       </section>
 
-      <!-- ==========================================================
-           Services
-           ========================================================== -->
-      <section class="section" id="services">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">Services</p>
-            <h2 class="section-title">What I can build for you</h2>
-          </div>
-
-          <div class="service-grid">
-            <article class="service reveal">
-              <span class="service__num">01</span>
-              <h3>Responsive Interfaces</h3>
-              <p>Layouts that hold their shape from phone to wide desktop.</p>
-            </article>
-
-            <article class="service reveal">
-              <span class="service__num">02</span>
-              <h3>React Applications</h3>
-              <p>Component-driven apps with predictable state and clean API wiring.</p>
-            </article>
-
-            <article class="service reveal">
-              <span class="service__num">03</span>
-              <h3>Real-Time Dashboards</h3>
-              <p>Live views where everyone sees the same thing at the same moment.</p>
-            </article>
-
-            <article class="service reveal">
-              <span class="service__num">04</span>
-              <h3>Map &amp; Location Features</h3>
-              <p>Interactive maps with markers, live positions and coverage areas.</p>
-            </article>
-
-            <article class="service reveal">
-              <span class="service__num">05</span>
-              <h3>REST API Integration</h3>
-              <p>Fetch, sync and updates — with sensible loading and error states.</p>
-            </article>
-
-            <article class="service reveal">
-              <span class="service__num">06</span>
-              <h3>Performance &amp; Polish</h3>
-              <p>Faster loads, smoother interaction, accessible markup.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================================
-           How I work
-           ========================================================== -->
-      <section class="section" id="process">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">How I work</p>
-            <h2 class="section-title">
-              Small, verified changes — <span class="text-accent">shipped with care</span>.
-            </h2>
-          </div>
-
-          <ol class="process">
-            <li class="process__step reveal">
-              <span class="process__num">01</span>
-              <h3>Read before I write</h3>
-              <p>I trace how something already flows before adding to it.</p>
-            </li>
-
-            <li class="process__step reveal">
-              <span class="process__num">02</span>
-              <h3>Reproduce, then fix</h3>
-              <p>A bug I can trigger on demand is a bug I can fix with confidence.</p>
-            </li>
-
-            <li class="process__step reveal">
-              <span class="process__num">03</span>
-              <h3>Build for the user</h3>
-              <p>Loading and error states are part of the feature, not polish.</p>
-            </li>
-
-            <li class="process__step reveal">
-              <span class="process__num">04</span>
-              <h3>Ship small, verify live</h3>
-              <p>Contained changes I can check against the running app.</p>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- ==========================================================
-           Education & certificates
-           ========================================================== -->
+      <!-- ========================= education ========================= -->
       <section class="section" id="education">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="eyebrow">Education &amp; Certificates</p>
-            <h2 class="section-title">Background</h2>
+        <div class="wrap">
+          <div class="shead rv">
+            <p class="label">Background</p>
+            <h2 class="stitle">Education &amp; certification.</h2>
           </div>
 
-          <div class="edu-grid">
-            <article class="edu reveal">
-              <p class="edu__period">Nov 2021 — May 2025</p>
-              <h3>B.Tech, Computer Science (Data Science)</h3>
-              <p class="edu__org">
-                Mallareddy Institute of Engineering and Technology, Hyderabad
-              </p>
+          <div class="edus">
+            <article class="edu rv">
+              <p class="edu__when">Nov 2021 — May 2025</p>
+              <h3>B.Tech, CSE (Data Science)</h3>
+              <p>Mallareddy Institute of Engineering and Technology, Hyderabad</p>
               <span class="edu__score">CGPA 7.02</span>
             </article>
 
-            <article class="edu reveal">
-              <p class="edu__period">Jun 2019 — Mar 2021</p>
+            <article class="edu rv">
+              <p class="edu__when">Jun 2019 — Mar 2021</p>
               <h3>Intermediate — MPC</h3>
-              <p class="edu__org">Sree Sandeepani Junior College, Kamareddy</p>
+              <p>Sree Sandeepani Junior College, Kamareddy</p>
               <span class="edu__score">86.2%</span>
             </article>
 
-            <article class="edu reveal">
-              <p class="edu__period">Certification</p>
+            <article class="edu rv">
+              <p class="edu__when">Certification</p>
               <h3>Full-Stack Development</h3>
-              <p class="edu__org">Innomatics Research Labs</p>
+              <p>Innomatics Research Labs</p>
               <span class="edu__score">MERN stack</span>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ==========================================================
-           Contact
-           ========================================================== -->
+      <!-- ========================= contact ========================= -->
       <section class="section" id="contact">
-        <div class="container">
-          <div class="contact-wrap">
-            <div class="reveal">
-              <p class="eyebrow">Contact</p>
-              <h2 class="section-title">
-                Have something to build?<br />Let&rsquo;s talk.
-              </h2>
-              <p class="section-sub">
-                Open to full-stack and frontend roles, and to freelance work.
-              </p>
+        <div class="wrap">
+          <div class="contact">
+            <div class="rv">
+              <p class="label">Contact</p>
+              <h2>Have something to build?<br /><span class="grad">Let's talk.</span></h2>
 
-              <div class="contact-links">
-                <a class="contact-link" href="mailto:janareddygaddam2008@gmail.com">
-                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                  <div>
-                    <span>Email</span>
-                    <strong>janareddygaddam2008@gmail.com</strong>
-                  </div>
-                </a>
-                <a class="contact-link" href="tel:+919390871746">
-                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                  <div>
-                    <span>Phone</span>
-                    <strong>+91 93908 71746</strong>
-                  </div>
-                </a>
-                <a
-                  class="contact-link"
-                  href="https://www.linkedin.com/in/gaddam-janareddy-400858228"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-                  <div>
-                    <span>LinkedIn</span>
-                    <strong>gaddam-janareddy</strong>
-                  </div>
-                </a>
-                <a
-                  class="contact-link"
-                  href="https://github.com/gaddamjanareddy"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <i class="fa-brands fa-github" aria-hidden="true"></i>
-                  <div>
-                    <span>GitHub</span>
-                    <strong>gaddamjanareddy</strong>
-                  </div>
-                </a>
+              <div class="reach">
+                <a href="mailto:janareddygaddam2008@gmail.com"><span>Email</span><b>janareddygaddam2008@gmail.com</b></a>
+                <a href="tel:+919390871746"><span>Phone</span><b>+91 93908 71746</b></a>
+                <a href="https://www.linkedin.com/in/gaddam-janareddy-400858228" target="_blank" rel="noopener"><span>LinkedIn</span><b>gaddam-janareddy</b></a>
+                <a href="https://github.com/gaddamjanareddy" target="_blank" rel="noopener"><span>GitHub</span><b>gaddamjanareddy</b></a>
               </div>
             </div>
 
             <!--
               Formspree: create a free form at https://formspree.io, then replace
-              YOUR_FORM_ID below AND the matching value at the top of script.js.
-              Until then the form falls back to opening the visitor's mail app.
+              YOUR_FORM_ID here AND at the top of script.js. Until then the form
+              falls back to opening the visitor's mail app.
             -->
             <form
-              class="form reveal"
+              class="form rv"
               id="contactForm"
-              action="https://formspree.io/f/xyeybjlb"
+              action="https://formspree.io/f/YOUR_FORM_ID"
               method="POST"
               novalidate
             >
               <div class="form__row">
                 <div class="field">
-                  <label for="name">Your name</label>
+                  <label for="name">Name</label>
                   <input id="name" name="name" type="text" placeholder="Jane Doe" required />
                 </div>
                 <div class="field">
-                  <label for="email">Your email</label>
+                  <label for="email">Email</label>
                   <input id="email" name="email" type="email" placeholder="jane@company.com" required />
                 </div>
               </div>
@@ -898,48 +542,35 @@
 
               <div class="field">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" placeholder="A line or two about what you need…" required></textarea>
+                <textarea id="message" name="message" rows="4" placeholder="A line or two about what you need…" required></textarea>
               </div>
 
-              <button class="btn btn--primary" type="submit" id="formSubmit">
-                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                Send message
-              </button>
+              <div>
+                <button class="btn btn--fill" type="submit" id="formSubmit">
+                  Send message <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </button>
+              </div>
 
-              <p class="form__note" id="formNote" role="status" aria-live="polite">
-                I usually reply within a day.
-              </p>
+              <p class="note" id="formNote" role="status" aria-live="polite">I usually reply within a day.</p>
             </form>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- ==========================================================
-         Footer
-         ========================================================== -->
     <footer class="footer">
-      <div class="container footer__inner">
-        <p>&copy; <span id="year">2026</span> Janareddy Gaddam</p>
-
+      <div class="wrap footer__in">
+        <p>&copy; <span id="year">2026</span> Janareddy Gaddam · Built from scratch</p>
         <div class="socials">
-          <a class="social" href="https://github.com/gaddamjanareddy" target="_blank" rel="noopener" aria-label="GitHub">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-          </a>
-          <a class="social" href="https://www.linkedin.com/in/gaddam-janareddy-400858228" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-          </a>
-          <a class="social" href="https://x.com/GaddamJanareddy" target="_blank" rel="noopener" aria-label="X">
-            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-          </a>
-          <a class="social" href="https://www.instagram.com/gaddam_janareddy" target="_blank" rel="noopener" aria-label="Instagram">
-            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-          </a>
+          <a href="https://github.com/gaddamjanareddy" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/gaddam-janareddy-400858228" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://x.com/GaddamJanareddy" target="_blank" rel="noopener">X</a>
+          <a href="https://www.instagram.com/gaddam_janareddy" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
     </footer>
 
-    <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+    <button class="totop" id="totop" type="button" aria-label="Back to top">
       <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
     </button>
 
