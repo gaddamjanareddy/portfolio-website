@@ -544,6 +544,9 @@ button, input, textarea { font: inherit; color: inherit; }
 
 .proj__go { display: flex; gap: 10px; margin-top: 22px; }
 
+/* free-tier cold-start warning, so a slow first load is not read as broken */
+.proj__note { font-size: 0.82rem; color: var(--t3); margin-top: 12px; }
+
 @media (max-width: 820px) { .projects { grid-template-columns: 1fr; } }
 
 /* ------------------------------------------------------------
